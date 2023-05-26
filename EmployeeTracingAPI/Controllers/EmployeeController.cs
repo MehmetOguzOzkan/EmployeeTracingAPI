@@ -35,7 +35,6 @@ namespace EmployeeTracingAPI.Controllers
 		public IActionResult Create([FromBody] CreateEmployeeModel createEmployeeModel)
 		{
 			Employee employee = new Employee();
-			employee.Id = GetNewEmployeeId();
 			employee.Name = createEmployeeModel.Name;
 			employee.Surname = createEmployeeModel.Surname;
 			employee.Email = createEmployeeModel.Email;
@@ -43,7 +42,7 @@ namespace EmployeeTracingAPI.Controllers
 			employee.Department = createEmployeeModel.Department;
 
 			employeeList.Add(employee);
-			return CreatedAtAction(nameof(GetNewEmployeeId), employee);
+			return Ok(employee);
 		}
 
 		// PUT : employees/id
@@ -74,14 +73,6 @@ namespace EmployeeTracingAPI.Controllers
 			employeeList.Remove(employee);
 
 			return NoContent();
-		}
-
-		private int GetNewEmployeeId()
-		{
-			Employee employee = employeeList.LastOrDefault();
-			if (employee == null)
-				return 0;
-			return employee.Id+1;
 		}
 	}
 }
