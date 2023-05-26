@@ -78,8 +78,10 @@ namespace EmployeeTracingAPI.Controllers
 
 		private int GetNewEmployeeId()
 		{
-			int newId = employeeList.LastOrDefault().Id;
-			return newId+1;
+			Employee employee = employeeList.LastOrDefault();
+			if (employee == null)
+				return 0;
+			return employee.Id+1;
 		}
 	}
 }
